@@ -4,36 +4,59 @@ import pymongo
 from datetime import datetime, timedelta
 
 
-date = datetime.strptime('2004-12-30', '%Y-%m-%d').date()
-l1 = []
-l2 = []
-m = []
+bdate = datetime.strptime('2004-12-30', '%Y-%m-%d').date()
+se = []
+ue = []
+e = []
+l = []
+
 
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Self-Employment\Self-employment date along top.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
-        if r[-1] not in ('') and r[4] != 'Conf':
-            l1.append(r)
+        if r[-1] not in ('') and r[4] != 'Conf' and r[0].split(':')[1] != 'City of London': # remove city of london entry as this mainly consists of ! and -
+            se.append(r)
 
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Employment\unemployment.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
-        if len(r) > 20 and r[2] != 'Conf':
-            l2.append(r)
+        if len(r) > 20 and r[2] != 'Conf' and r[0] != 'City of London':
+            ue.append(r)
 
-
-for i in range(80):
+for i in range(79):
     d = {}
-    e = {}
-    d['city'] = l1[i][0].split(':')[1]
+    d['city'] = se[i][0].split(':')[1]
     d['employment_rates'] = []
     for n in range(51):
         f = {}
-        quarter = date + timedelta(days = 91*n)
-        f['self_employed'] = l1[i][3 + n*4]
-        f['unemployed'] = l2[i][1 + n*2]
-        d['employment_rates'].append({str(datetime.strftime(quarter, '%Y-%m'))+'-01': f})
-    m.append(d)
+        quarter = bdate + timedelta(days = 91*n)
+        if d.get('city', 'nope') == ue[i][0]:
+            f['self_employed'] = float(se[i][3 + n*4])
+            f['unemployed'] = float(ue[i][1 + n*2])
+            f['date'] = str(datetime.strftime(quarter, '%Y-%m'))+'-01'
+        d['employment_rates'].append(f)
+    e.append(d)
 
-for j in m:
+for j in e:
     pymongo.MongoClient("mongodb://localhost").uber.employment.insert(j)
+
+
+with open(r'C:\Users\Student\Documents\Uber\london.txt', 'r') as london:
+    for k in london:
+        if k != '\n':
+            l.append(k[:-2])
+
+p = [{"$match": {"city": {"$in": l}}}, {"$unwind": "$employment_rates"}, {"$group": {"_id": "$employment_rates.date", "unemployed": {"$avg": "$employment_rates.unemployed"}, "self_employed": {"$avg": "$employment_rates.self_employed"}}}, {"$sort": {"_id": -1}}]
+
+lon = {}
+lon['city'] = 'London'
+lon['employment_rates'] = []
+er = {}
+
+for a in pymongo.MongoClient("mongodb://localhost").uber.employment.aggregate(pipeline = p):
+    er["date"] = a["_id"]
+    er["unemployed"] = a["unemployed"]
+    er["self_employed"] = a["self_employed"]
+    lon['employment_rates'].append(er)
+
+pymongo.MongoClient("mongodb://localhost").uber.employment.insert(lon)
