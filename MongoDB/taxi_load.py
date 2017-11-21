@@ -3,114 +3,54 @@ from pprint import pprint
 import pymongo
 from datetime import datetime
 import itertools
+import time
 
-l2011 = []
-l2013 = []
-l2015 = []
-l2017 = []
+l = []
+d = {}
 
-with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\taxi\taxi2011.csv', 'r') as f:
-    reader = csv.reader(f)
-    for r in reader:
-        if r[2] not in (''): # entries we want have the area name in the 2nd or 3rd entry of r
+for i in range(1, 8, 2):
+    with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\taxi\taxi201'+str(i)+r'.csv', 'r') as f:
+        reader = csv.reader(f)
+        for r in reader:
+            if r[2] not in (''):# entries we want have the area name in the 2nd or 3rd entry
 #this does however involve categories i.e Tyne and wear for gateshead etc.
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[2]
-            d['date'] = str(datetime.strptime('2011-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2011.append(d)
-        if r[3] not in (''):
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[3]
-            d['date'] = str(datetime.strptime('2011-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2011.append(d)
+                data = {}
+                data['date'] = str(datetime.strptime('201'+str(i)+'-03-31', '%Y-%m-%d').date())
+                data['taxis'] = r[7]
+                data['phv'] = r[11]
+                data['total_dri'] = r[-2]
+                data['total_veh'] = r[-1]
+                new_city = True
+                for n in range(len(l)):
+                    if l[n].get('city', 'na') == r[2]:
+                        l[n]['data'].append(data)
+                        new_city = False
+                if new_city == True:
+                    d = {}
+                    d['la_code'] = r[0]
+                    d['city'] = r[2]
+                    d['data'] = []
+                    d['data'].append(data)
+                    l.append(d)
+            if r[3] not in (''):
+                data = {}
+                data['date'] = str(datetime.strptime('201'+str(i)+'-03-31', '%Y-%m-%d').date())
+                data['taxis'] = r[7]
+                data['phv'] = r[11]
+                data['total_dri'] = r[-2]
+                data['total_veh'] = r[-1]
+                new_city = True
+                for n in range(len(l)):
+                    if l[n].get('city', 'na') == r[3]:
+                        l[n]['data'].append(data)
+                        new_city = False
+                if new_city == True:
+                    d = {}
+                    d['la_code'] = r[0]
+                    d['city'] = r[3]
+                    d['data'] = []
+                    d['data'].append(data)
+                    l.append(d)
 
-with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\taxi\taxi2013.csv', 'r') as f:
-    reader = csv.reader(f)
-    for r in reader:
-        if r[2] not in (''): # entries we want have the area name in the 2nd or 3rd entry of r
-#this does however involve categories i.e Tyne and wear for gateshead etc.
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[2]
-            d['date'] = str(datetime.strptime('2013-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2013.append(d)
-        if r[3] not in (''):
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[3]
-            d['date'] = str(datetime.strptime('2013-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2013.append(d)
-
-with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\taxi\taxi2015.csv', 'r') as f:
-    reader = csv.reader(f)
-    for r in reader:
-        if r[2] not in (''): # entries we want have the area name in the 2nd or 3rd entry of r
-#this does however involve categories i.e Tyne and wear for gateshead etc.
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[2]
-            d['date'] = str(datetime.strptime('2015-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2015.append(d)
-        if r[3] not in (''):
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[3]
-            d['date'] = str(datetime.strptime('2015-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2015.append(d)
-
-with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\taxi\taxi2017.csv', 'r') as f:
-    reader = csv.reader(f)
-    for r in reader:
-        if r[2] not in (''): # entries we want have the area name in the 2nd or 3rd entry of r
-#this does however involve categories i.e Tyne and wear for gateshead etc.
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[2]
-            d['date'] = str(datetime.strptime('2017-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2017.append(d)
-        if r[3] not in (''):
-            d = {}
-            d['la_code'] = r[0]
-            d['name'] = r[3]
-            d['date'] = str(datetime.strptime('2017-03-31', '%Y-%m-%d').date())
-            d['taxis'] = r[7]
-            d['phv'] = r[11]
-            d['total_dri'] = r[16]
-            d['total_veh'] = r[17]
-            l2017.append(d)
-
-for i in itertools.chain(*[l2011, l2013, l2015, l2017]):
+for i in l:
     pymongo.MongoClient("mongodb://localhost").uber.taxi.insert(i)
-
-# for i in itertools.chain(*[l2011, l2013, l2015, l2017]):
-#         pymongo.MongoClient("mongodb://localhost").uber.taxi.insert(i)
