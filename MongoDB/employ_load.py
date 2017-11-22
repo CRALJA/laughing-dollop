@@ -40,6 +40,9 @@ for i in range(79):
 for j in e:
     pymongo.MongoClient("mongodb://localhost").uber.employment.insert(j)
 
+########################################################################################
+#Insert London if needed#
+########################################################################################
 
 with open(r'C:\Users\Student\Documents\Uber\london.txt', 'r') as london:
     for k in london:
