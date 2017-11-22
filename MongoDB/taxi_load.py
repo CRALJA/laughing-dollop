@@ -16,10 +16,10 @@ for i in range(1, 8, 2):
 #this does however involve categories i.e Tyne and wear for gateshead etc.
                 data = {}
                 data['date'] = str(datetime.strptime('201'+str(i)+'-03-31', '%Y-%m-%d').date())
-                data['taxis'] = r[7]
-                data['phv'] = r[11]
-                data['total_dri'] = r[-2]
-                data['total_veh'] = r[-1]
+                data['taxis'] = int(r[7].replace(',', ''))
+                data['phv'] = int(r[11].replace(',', ''))
+                data['total_dri'] = int(r[-2].replace(',', ''))
+                data['total_veh'] = int(r[-1].replace(',', ''))
                 new_city = True
                 for n in range(len(l)):
                     if l[n].get('city', 'na') == r[2]:
@@ -35,10 +35,10 @@ for i in range(1, 8, 2):
             if r[3] not in (''):
                 data = {}
                 data['date'] = str(datetime.strptime('201'+str(i)+'-03-31', '%Y-%m-%d').date())
-                data['taxis'] = r[7]
-                data['phv'] = r[11]
-                data['total_dri'] = r[-2]
-                data['total_veh'] = r[-1]
+                data['taxis'] = int(r[7].replace(',', ''))
+                data['phv'] = int(r[11].replace(',', ''))
+                data['total_dri'] = int(r[-2].replace(',', ''))
+                data['total_veh'] = int(r[-1].replace(',', ''))
                 new_city = True
                 for n in range(len(l)):
                     if l[n].get('city', 'na') == r[3]:
