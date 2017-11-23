@@ -1,57 +1,57 @@
-City,Uber status,Date started,,,,,,,,
-Bangor,N,NA,,,,,,,,
-Bath,Y,Jun-16,,,,,,,,
-Birmingham,Y,Feb-15,,,,,,,,
-Bradford,Y,May-15,,,,,,,,
-Brighton & Hove,Y,Oct-15,,,,,,,,
-Bristol,Y,Jun-15,,,,,,,,
-Cambridge,Y,Nov-16,,,,,,,,
-Canterbury,N,NA,,,,,,,,
-Cardiff,Y,Apr-16,,,,,,,,
-Carlisle,N,NA,,,,,,,,
-Chelmsford,N,NA,,,,,,,,
-Chester,Y,Jul-17,,,,,,,,
-Chichester,Y,Mar-17,,,,,,,,
-Coventry,N,NA,,,,,,,,
-Derby,Y,Jul-17,,,,,,,,
-Durham,Y,Oct-17,,,,,,,,
-Ely,N,NA,,,,,,,,
-Exeter,N,NA,,,,,,,,
-Gloucester,N,NA,,,,,,,,
-Hereford,N,NA,,,,,,,,
-Kingston upon Hull,N,NA,,,,,,,,
-Lancaster,Y,Mar-15,,,,,,,,
-Leeds,Y,Nov-14,,,,,,,,
-Leicester,Y,Nov-15,,,,,,,,
-Lichfield,N,NA,,,,,,,,
-Lincoln,N,NA,,,,,,,,
-Liverpool,Y,Aug-15,,,,,,,,
-London,Y,Jul-12,,,,,,,,
-Manchester,Y,May-14,,,,,,,,
-Newcastle upon Tyne,Y,Apr-15,,,,,,,,
-Newport,Y,Oct-16,,,,,,,,
-Norwich,N,NA,,,,,,,,
-Nottingham,Y,Nov-15,,,,,,,,
-Oxford,Failed,NA,,,,,,,,
-Peterborough,Y,Nov-16,,,,,,,,
-Plymouth,Maybe,NA,,,,,,,,
-Portsmouth,Y,Nov-15,,,,,,,,
-Preston,N,NA,,,,,,,,
-Ripon,N,NA,,,,,,,,
-St Albans,Y,May-17,,,,,,,,
-St Asaph,N,NA,,,,,,,,
-Salford,Y,May-14,,,,,,,,
-St David's,N,NA,,,,,,,,
-Salisbury,N,NA,,,,,,,,
-Sheffield,Y,Jun-15,,,,,,,,
-Southampton,Y,Apr-16,,,,,,,,
-Stoke-on-Trent,Y,Jul-16,,,,,,,,
-Sunderland,Y,Apr-16,,,,,,,,
-Swansea,N,NA,,,,,,,,
-Truro,N,NA,,,,,,,,
-Wakefield,Y,Mar-15,,,,,,,,
-Wells,N,NA,,,,,,,,
-Winchester,N,NA,,,,,,,,
-Wolverhampton,Y,Jul-17,,,,,,,,
-Worcester,N,NA,,,,,,,,
-York,Y,Sep-16,,,,,,,,
+City,Uber status,Date started
+Bangor,N,NA
+Bath,Y,Jun-16
+Birmingham,Y,Feb-15
+Bradford,Y,May-15
+Brighton & Hove,Y,Oct-15
+Bristol,Y,Jun-15
+Cambridge,Y,Nov-16
+Canterbury,N,NA
+Cardiff,Y,Apr-16
+Carlisle,N,NA
+Chelmsford,N,NA
+Chester,Y,Jul-17
+Chichester,Y,Mar-17
+Coventry,N,NA
+Derby,Y,Jul-17
+Durham,Y,Oct-17
+Ely,N,NA
+Exeter,N,NA
+Gloucester,N,NA
+Hereford,N,NA
+Kingston upon Hull,N,NA
+Lancaster,Y,Mar-15
+Leeds,Y,Nov-14
+Leicester,Y,Nov-15
+Lichfield,N,NA
+Lincoln,N,NA
+Liverpool,Y,Aug-15
+London,Y,Jul-12
+Manchester,Y,May-14
+Newcastle upon Tyne,Y,Apr-15
+Newport,Y,Oct-16
+Norwich,N,NA
+Nottingham,Y,Nov-15
+Oxford,Failed,NA
+Peterborough,Y,Nov-16
+Plymouth,Maybe,NA
+Portsmouth,Y,Nov-15
+Preston,N,NA
+Ripon,N,NA
+St Albans,Y,May-17
+St Asaph,N,NA
+Salford,Y,May-14
+St David's,N,NA
+Salisbury,N,NA
+Sheffield,Y,Jun-15
+Southampton,Y,Apr-16
+Stoke-on-Trent,Y,Jul-16
+Sunderland,Y,Apr-16
+Swansea,N,NA
+Truro,N,NA
+Wakefield,Y,Mar-15
+Wells,N,NA
+Winchester,N,NA
+Wolverhampton,Y,Jul-17
+Worcester,N,NA
+York,Y,Sep-16
