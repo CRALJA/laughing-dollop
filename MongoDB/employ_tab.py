@@ -1,9 +1,11 @@
+# code to load tableau ready employment data into Mongo
+
 import csv
 from pprint import pprint
 import pymongo
 from datetime import datetime, timedelta
 
-
+# bdate is available set to the first date in the dataset - it will be used later to calculate yearly quarters
 bdate = datetime.strptime('2004-12-30', '%Y-%m-%d').date()
 se = []
 ue = []
@@ -14,6 +16,7 @@ u = []
 def diff_month(d1, d2):
     return (d1.year - d2.year) * 12 + d1.month - d2.month
 
+# opening the Uber launch dates csv file, adding rows into a list
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Uk_cities_uber_deployment.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
@@ -24,18 +27,22 @@ with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Uk_cities_ub
             a.append(datetime.strptime(r[2], '%b-%y'))
             u.append(a)
 
+# opening the self-employment csv file, adding rows into a list
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Self-Employment\Self-employment date along top.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
         if r[-1] not in ('') and r[4] != 'Conf' and r[0].split(':')[1] != 'City of London': # remove city of london entry as this mainly consists of ! and -
             se.append(r)
 
+# opening the unemployment csv file, adding rows into a list
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Employment\unemployment.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
         if len(r) > 20 and r[2] != 'Conf' and r[0] != 'City of London':
             ue.append(r)
 
+
+# creating a dictionary with each city and the matching employment rates with dates as a list of dictionaries
 for i in range(79):
     for j in range(len(u)):
         if se[i][0].split(':')[1] in u[j][0]:
@@ -54,5 +61,6 @@ for i in range(79):
                     d['employment_rates'].append(f)
             e.append(d)
 
+#add dictionary to Mongo data base, db = uber, collection = employment_tab
 for j in e:
     pymongo.MongoClient("mongodb://localhost").uber.employment_tab.insert(j)

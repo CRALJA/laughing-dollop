@@ -1,28 +1,32 @@
+# code to load employment data into Mongo -- no adjustments made
+
 import csv
 from pprint import pprint
 import pymongo
 from datetime import datetime, timedelta
 
-
+# bdate is available set to the first date in the dataset - it will be used later to calculate yearly quarters
 bdate = datetime.strptime('2004-12-30', '%Y-%m-%d').date()
 se = []
 ue = []
 e = []
 l = []
 
-
+# opening the self-employment csv file, adding rows into a list
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Self-Employment\Self-employment date along top.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
-        if r[-1] not in ('') and r[4] != 'Conf' and r[0].split(':')[1] != 'City of London': # remove city of london entry as this mainly consists of ! and -
+        if r[-1] not in ('') and r[4] != 'Conf' and r[0].split(':')[1] != 'City of London':  # remove city of london entry as this mainly consists of ! and -
             se.append(r)
 
+# opening the unemployment csv file, adding rows into a list
 with open(r'C:\Users\Student\Documents\laughing-dollop\Data Sources\Employment\unemployment.csv', 'r') as f:
     reader = csv.reader(f)
     for r in reader:
         if len(r) > 20 and r[2] != 'Conf' and r[0] != 'City of London':
             ue.append(r)
 
+# creating a dictionary with each city and the matching employment rates with dates as a list of dictionaries
 for i in range(79):
     d = {}
     d['city'] = se[i][0].split(':')[1]
@@ -37,13 +41,12 @@ for i in range(79):
         d['employment_rates'].append(f)
     e.append(d)
 
+#add dictionary to Mongo data base, db = uber, collection = employment
 for j in e:
     pymongo.MongoClient("mongodb://localhost").uber.employment.insert(j)
 
-########################################################################################
-#Insert London if needed#
-########################################################################################
 
+# the following code will add the London dataset if needed
 with open(r'C:\Users\Student\Documents\Uber\london.txt', 'r') as london:
     for k in london:
         if k != '\n':
