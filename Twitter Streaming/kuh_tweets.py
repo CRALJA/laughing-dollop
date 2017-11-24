@@ -11,22 +11,22 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pymongo
 
 
-CONSUMER_KEY = 'vbdTbBGv3RzRq77vbUwBIFSJ5'
-CONSUMER_SECRET = 'hSYjoSg8Ql7TFrBe5HgjEN4jhsLPwuY32A7ULC6yYOZFSgwbA8'
-ACCESS_TOKEN = '261796503-2Ei3eAvL8CL48zasgEeljxdEtj76qMdoitzucIK1'
-ACCESS_TOKEN_SECRET = 'CWTK9skZgYn1RYDHbbSoEeODqqdaxLDKu9uBDiPrN9XOQ'
+CONSUMER_KEY = 'YlPOEFhP0GdL66C3fGzEMhfJJ'
+CONSUMER_SECRET = 'Idc2AFjzFH9j99PUbEi2OuO0Bf3RrrZpdJ0krF5CYcfFOEoUb6'
+ACCESS_TOKEN = '925717663510298625-l2KBcu4wt2he5mLQuOu7nwhkVJW3Mw1'
+ACCESS_TOKEN_SECRET = 'JAgxJpaGL6NYXKj01mhpf2cnYQdZLfHTJpTQ0T0fxsC7a'
 
 analyser = SentimentIntensityAnalyzer()
 analyser.polarity_scores('test')
 
-truro_dict = {}
-truro_tweets = []
+kuh_dict = {}
+kuh_tweets = []
 
 c = pymongo.MongoClient("mongodb://localhost")
 db = c.uber
 l_tweets = db.tweets
 
-truro_dict['city'] = 'truro'
+kuh_dict['city'] = 'Kingston_upon_Hull'
 
 
 class MyStreamer(TwythonStreamer): # base class is TwythonStreams. Inherits everything that is in TwythonStreamer.
@@ -42,12 +42,12 @@ class MyStreamer(TwythonStreamer): # base class is TwythonStreams. Inherits ever
                 self.tweet_dict['tweet no'] = '{c} '.format(c = MyStreamer.counter)
                 self.tweet_dict['sentiment'] = analyser.polarity_scores((data['text']))['compound']
                 self.tweet_dict['text'] = data['text']
-                self.tweet_dict['city'] = 'truro'
+                self.tweet_dict['city'] = 'Kingston_upon_Hull'
                 print(self.tweet_dict)
                 t = self.tweet_dict
-                truro_tweets.append(self.tweet_dict)
-                truro_dict['tweets'] = truro_tweets
-                #l_tweets.insert_one(truro_dict)
+                kuh_tweets.append(self.tweet_dict)
+                kuh_dict['tweets'] = kuh_tweets
+                #l_tweets.insert_one(kuh_dict)
                 l_tweets.insert_one(t)
 
     def on_error(self, status_code, data):
@@ -61,7 +61,7 @@ timeout = time.time() + 60 # current time + 60 seconds
 while True: # until you break
     if time.time() > timeout: # more than 60 seconds
         break # exits the while loop
-    stream.statuses.filter(locations='-5.067775, 50.254185, -5.038774, 50.274355')
+    stream.statuses.filter(locations='-0.417413, 53.721305, -0.266592, 53.808122')
 
 
 # tweets[:100]

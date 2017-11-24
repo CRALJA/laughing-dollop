@@ -11,10 +11,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pymongo
 
 
-CONSUMER_KEY = 'vbdTbBGv3RzRq77vbUwBIFSJ5'
-CONSUMER_SECRET = 'hSYjoSg8Ql7TFrBe5HgjEN4jhsLPwuY32A7ULC6yYOZFSgwbA8'
-ACCESS_TOKEN = '261796503-2Ei3eAvL8CL48zasgEeljxdEtj76qMdoitzucIK1'
-ACCESS_TOKEN_SECRET = 'CWTK9skZgYn1RYDHbbSoEeODqqdaxLDKu9uBDiPrN9XOQ'
+CONSUMER_KEY = 'KFpkYBIUb2FwQflF53ledoMYe'
+CONSUMER_SECRET = 'JqlkgGVyj2U6QUFmWLf54kO6j41p6Yg9kBJLxDo2Ixy7hO4l63'
+ACCESS_TOKEN = '925717664508645376-h7bsgP10K6lyW0wqaOY7TYgEVlLjBVk'
+ACCESS_TOKEN_SECRET = 'Uc7khWeoeJjn15qFr7Lit0LpAeUUTCo84VF1yT73NSLhH'
 
 analyser = SentimentIntensityAnalyzer()
 analyser.polarity_scores('test')
