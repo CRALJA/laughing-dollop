@@ -1,4 +1,4 @@
-# code to load tableau ready employment data into Mongo
+""" code to load tableau ready employment data into Mongo. The files for this code are in the data sources file"""
 
 import csv
 from pprint import pprint
