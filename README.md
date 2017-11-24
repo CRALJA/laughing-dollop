@@ -2,6 +2,8 @@
 
 A project written in Python to predict the next city Uber should work in. We limited our search initially to the UK and then to cities in England, excluding London, based on the data that we could find. We excluded London because it is not comparable to any other city - by size or population. We felt that the reasons why Uber is so successful in London would not be transferrable to other UK cities. Also, the private hire licenced for Uber was revoked in London as of September 2017. They are currently appealing this decision and so this was another reason why we decided to excluded London from our analysis at this point. 
 
+We used MongoDB, Microsoft SQL, Pycharm, Notepad++, Atom, Command Prompt, Tableau, Jupyter, Microsoft Excel, Google Chrome, SourceTree, ZenHub, GitHub and Lozza's knowledge to complete this project. We used agile methodology as well. 
+
 ##########################################################
 Research:
 ##########################################################
@@ -37,3 +39,5 @@ Taxi data: Considering the number of taxis in each city before and after Uber la
 Crime data: We considered whether crime levels in 4 types of crime (theft from a person, vehicle crime, violence and sexual offences, and bicycle theft) changed in the 12 months before and after Uber launched in the city. This would give a good indication of whether Uber had a positive impact on reducing crime levels and would be beneficial to a new city. 
 Deprivation data: This is used to suggest possible Uber cities based on their similar deprivation levels when compared to cities that do have Uber. 
 Uber data: Demographic of Uber users and the date that Uber launched in each city. Uber user demographic show that 40% of users (in the USA) are aged 24-30. Determining the proportion of these people in each city would identify the cities which are the best for Uber to join next. 
+
+Twitter streaming: We set up a code to stream tweets from each city that we were considering, storing the tweets in a Mongo database if they contained the word 'uber'. However, we didn't collect any tweets in the amount of time we ran the twitter streaming code for, because there were no tweets created by users in those locations, and so we could not use this for our analysis. In the future we would explore this futher, perhaps running the code for a longer time. 
