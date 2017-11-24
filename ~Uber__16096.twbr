@@ -742,6 +742,7 @@
             <encodings>
               <lod column='[federated.1n6byk51gq7vif18cj3nt0wq1aa4].[none:City:nk]' />
               <color column='[federated.1n6byk51gq7vif18cj3nt0wq1aa4].[sum:People_to_station:qk]' />
+              <size column='[federated.1n6byk51gq7vif18cj3nt0wq1aa4].[sum:People_to_station:qk]' />
             </encodings>
           </pane>
         </panes>
@@ -774,6 +775,7 @@
         <edge name='right'>
           <strip size='160'>
             <card pane-specification-id='0' param='[federated.1n6byk51gq7vif18cj3nt0wq1aa4].[sum:People_to_station:qk]' type='color' />
+            <card pane-specification-id='0' param='[federated.1n6byk51gq7vif18cj3nt0wq1aa4].[sum:People_to_station:qk]' type='size' />
           </strip>
         </edge>
       </cards>

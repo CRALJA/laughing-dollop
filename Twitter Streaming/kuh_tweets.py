@@ -1,3 +1,4 @@
+"""Capturing tweets which are sent from a location that is approximately the area that is Kingston Upon Hull"""
 
 from twython import TwythonStreamer
 import time
@@ -10,18 +11,21 @@ from pprint import pprint
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pymongo
 
-
+# These keys are supplied from the Twitter
 CONSUMER_KEY = 'YlPOEFhP0GdL66C3fGzEMhfJJ'
 CONSUMER_SECRET = 'Idc2AFjzFH9j99PUbEi2OuO0Bf3RrrZpdJ0krF5CYcfFOEoUb6'
 ACCESS_TOKEN = '925717663510298625-l2KBcu4wt2he5mLQuOu7nwhkVJW3Mw1'
 ACCESS_TOKEN_SECRET = 'JAgxJpaGL6NYXKj01mhpf2cnYQdZLfHTJpTQ0T0fxsC7a'
 
-analyser = SentimentIntensityAnalyzer()
-analyser.polarity_scores('test')
+analyser = SentimentIntensityAnalyzer() # analyses the sentiment of each tweet which is how positive or negative it is,
+#  a positive score indicates a positive sentiment and vice versa
 
+# here is the process which captures various elements of the tweet which is then put into a dictionary which is then
+#  loaded into MongoDB
 kuh_dict = {}
 kuh_tweets = []
 
+# connection to MongoDB
 c = pymongo.MongoClient("mongodb://localhost")
 db = c.uber
 l_tweets = db.tweets
@@ -32,13 +36,12 @@ kuh_dict['city'] = 'Kingston_upon_Hull'
 class MyStreamer(TwythonStreamer): # base class is TwythonStreams. Inherits everything that is in TwythonStreamer.
     counter = 0
 
-    def on_success(self, data):
+    def on_success(self, data):  # when a tweet is found, it is manipulated as the code shows below
         self.tweet_dict = {}
         if data['lang'] == 'en':
+            print('YES - Tweet number {c} has arrived'.format(c=MyStreamer.counter))
+            MyStreamer.counter += 1
             if 'uber' in data['text']:
-                MyStreamer.counter += 1
-
-                print('YES - Tweet number {c} hss arrived'.format(c = MyStreamer.counter))
                 self.tweet_dict['tweet no'] = '{c} '.format(c = MyStreamer.counter)
                 self.tweet_dict['sentiment'] = analyser.polarity_scores((data['text']))['compound']
                 self.tweet_dict['text'] = data['text']
@@ -47,7 +50,6 @@ class MyStreamer(TwythonStreamer): # base class is TwythonStreams. Inherits ever
                 t = self.tweet_dict
                 kuh_tweets.append(self.tweet_dict)
                 kuh_dict['tweets'] = kuh_tweets
-                #l_tweets.insert_one(kuh_dict)
                 l_tweets.insert_one(t)
 
     def on_error(self, status_code, data):
@@ -57,22 +59,5 @@ class MyStreamer(TwythonStreamer): # base class is TwythonStreams. Inherits ever
 
 stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-timeout = time.time() + 60 # current time + 60 seconds
-while True: # until you break
-    if time.time() > timeout: # more than 60 seconds
-        break # exits the while loop
-    stream.statuses.filter(locations='-0.417413, 53.721305, -0.266592, 53.808122')
-
-
-# tweets[:100]
-#
-# sentiment_for_times = []
-# for t in tweets[1:100]:
-#    # td = json.loads(str(t))
-#    sentiment_for_times.append(analyser.polarity_scores(t['text'])['compound'])
-#    print(analyser.polarity_scores(t['text'])['compound'], t['text'])
-#
-
-
-
-
+stream.statuses.filter(locations='-0.417413, 53.721305, -0.266592, 53.808122')  # this is a location box for Kingston
+# Upon Hull, the first set of coordinates is the southwest box and the second set is the northeast box
